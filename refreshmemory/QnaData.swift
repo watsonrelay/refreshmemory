@@ -67,15 +67,21 @@ extension QnaData {
         let qna = userDefaults.value(forKey: "qna")
         if (qna != nil) {
             var json = JSON(data: qna as! Data)
-            json.arrayObject?.remove(at: at)
-            let updated = JSON(json.arrayObject!)
-            do {
-                let data = try updated.rawData()
-                userDefaults.setValue(data, forKey: "qna")
+            if (json.arrayObject?.count == 1) {
+                userDefaults.removeObject(forKey: "qna")
                 userDefaults.synchronize()
-            } catch {
+                return true
+            } else if ((json.arrayObject?.count)! > 1) {
+                json.arrayObject?.remove(at: at)
+                let updated = JSON(json.arrayObject!)
+                do {
+                    let data = try updated.rawData()
+                    userDefaults.setValue(data, forKey: "qna")
+                    userDefaults.synchronize()
+                } catch {
+                }
+                return true
             }
-            return true
         }
         return false
     }
