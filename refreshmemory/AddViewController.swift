@@ -11,14 +11,20 @@ import SwiftyJSON
 
 class AddViewController: UIViewController {
     
-    var delegate : AddQnaDelegateProtocol? = nil
+    var delegate : UpdateQnaDelegateProtocol? = nil
+    var indexPath : IndexPath? = nil
 
-    @IBOutlet weak var question: UITextField!
+    @IBOutlet weak var question: UITextView!
     @IBOutlet weak var answer: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.indexPath = self.delegate?.getEditingIndexPath()
+        if self.indexPath != nil {
+            let json = QnaData.get(at: (self.indexPath?.row)!)
+            question.text = json["question"].stringValue
+            answer.text = json["answer"].stringValue
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -31,44 +37,20 @@ class AddViewController: UIViewController {
     }
     
     @IBAction func save(sender: AnyObject) {
-        
-        let qna = QnaData(question: question.text!, answer: answer.text!)
-        let result = qna.append()
-        if result != nil {
-            self.delegate?.didAddQna()
+        var toReload = false
+        if question.text != "" || answer.text != "" {
+            let qna = QnaData(question: question.text!, answer: answer.text!, due: 0, count: 0)
+            if self.indexPath == nil {
+                let result = qna.prepend()
+                if result != nil {
+                    toReload = true
+                }
+            } else {
+                toReload = qna.update(at: (self.indexPath?.row)!)
+            }
         }
-        
-        /*
-        let newData: JSON = [[
-            "question": question.text!,
-            "answer": answer.text!
-        ]]
-        
-        let userDefaults = UserDefaults.standard
-        let qna = userDefaults.value(forKey: "qna")
-        let updated : JSON
-        if (qna != nil) {
-            var json = JSON(data: qna as! Data)
-            updated = JSON(json.arrayObject! + newData.arrayObject!)
-        } else {
-            updated = newData
-        }
-        
-        do {
-            let data = try updated.rawData()
-            let userDefaults = UserDefaults.standard
-            userDefaults.setValue(data, forKey: "qna")
-            userDefaults.synchronize() // don't forget this!!!!
-            self.delegate?.didAddQna()
-        } catch {
-            
-        }
- */
+        self.delegate?.didFinishEditing(toReload: toReload)
         dismiss(animated: true, completion: nil)
     }
     
-}
-
-protocol AddQnaDelegateProtocol {
-    func didAddQna()
 }

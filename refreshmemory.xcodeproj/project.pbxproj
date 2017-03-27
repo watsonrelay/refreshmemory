@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		452A4FF11E875FD90067B0CB /* EditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452A4FF01E875FD90067B0CB /* EditTableViewController.swift */; };
+		452A4FF31E8763060067B0CB /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452A4FF21E8763060067B0CB /* BaseTableViewController.swift */; };
+		452A4FF51E877F4C0067B0CB /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452A4FF41E877F4C0067B0CB /* MainTableViewCell.swift */; };
+		452A4FF71E8789800067B0CB /* EditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452A4FF61E8789800067B0CB /* EditTableViewCell.swift */; };
 		457C31D61E861F81002ECBBA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457C31D51E861F81002ECBBA /* AppDelegate.swift */; };
 		457C31D81E861F81002ECBBA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457C31D71E861F81002ECBBA /* ViewController.swift */; };
 		457C31DB1E861F81002ECBBA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457C31D91E861F81002ECBBA /* Main.storyboard */; };
@@ -19,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		452A4FF01E875FD90067B0CB /* EditTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTableViewController.swift; sourceTree = "<group>"; };
+		452A4FF21E8763060067B0CB /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		452A4FF41E877F4C0067B0CB /* MainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		452A4FF61E8789800067B0CB /* EditTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
 		457C31D21E861F81002ECBBA /* refreshmemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = refreshmemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		457C31D51E861F81002ECBBA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		457C31D71E861F81002ECBBA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +93,10 @@
 				457C31E71E862E3B002ECBBA /* AddViewController.swift */,
 				457C31E91E863529002ECBBA /* QnaData.swift */,
 				457C31EB1E865327002ECBBA /* MainTableViewController.swift */,
+				452A4FF41E877F4C0067B0CB /* MainTableViewCell.swift */,
+				452A4FF01E875FD90067B0CB /* EditTableViewController.swift */,
+				452A4FF61E8789800067B0CB /* EditTableViewCell.swift */,
+				452A4FF21E8763060067B0CB /* BaseTableViewController.swift */,
 			);
 			path = refreshmemory;
 			sourceTree = "<group>";
@@ -222,8 +234,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				457C31D81E861F81002ECBBA /* ViewController.swift in Sources */,
+				452A4FF11E875FD90067B0CB /* EditTableViewController.swift in Sources */,
+				452A4FF51E877F4C0067B0CB /* MainTableViewCell.swift in Sources */,
 				457C31D61E861F81002ECBBA /* AppDelegate.swift in Sources */,
+				452A4FF31E8763060067B0CB /* BaseTableViewController.swift in Sources */,
 				457C31EA1E863529002ECBBA /* QnaData.swift in Sources */,
+				452A4FF71E8789800067B0CB /* EditTableViewCell.swift in Sources */,
 				457C31EC1E865327002ECBBA /* MainTableViewController.swift in Sources */,
 				457C31E81E862E3B002ECBBA /* AddViewController.swift in Sources */,
 			);
@@ -351,6 +367,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9R4FD2M6DR;
 				INFOPLIST_FILE = refreshmemory/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.coretek.refreshmemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -365,6 +382,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9R4FD2M6DR;
 				INFOPLIST_FILE = refreshmemory/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.coretek.refreshmemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
