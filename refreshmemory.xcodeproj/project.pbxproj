@@ -17,8 +17,9 @@
 		457C31DD1E861F81002ECBBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 457C31DC1E861F81002ECBBA /* Assets.xcassets */; };
 		457C31E01E861F81002ECBBA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 457C31DE1E861F81002ECBBA /* LaunchScreen.storyboard */; };
 		457C31E81E862E3B002ECBBA /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457C31E71E862E3B002ECBBA /* AddViewController.swift */; };
-		457C31EA1E863529002ECBBA /* QnaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457C31E91E863529002ECBBA /* QnaData.swift */; };
 		457C31EC1E865327002ECBBA /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457C31EB1E865327002ECBBA /* MainTableViewController.swift */; };
+		45D93AD81E891371003B7206 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D93AD71E891371003B7206 /* CoreData.framework */; };
+		45D93ADB1E89142F003B7206 /* refreshmemory.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 45D93AD91E89142F003B7206 /* refreshmemory.xcdatamodeld */; };
 		94D82620A92CDC27B9D759BB /* Pods_refreshmemory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB3D64E01F7E33A1338B85BC /* Pods_refreshmemory.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,8 +36,9 @@
 		457C31DF1E861F81002ECBBA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		457C31E11E861F81002ECBBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		457C31E71E862E3B002ECBBA /* AddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
-		457C31E91E863529002ECBBA /* QnaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QnaData.swift; sourceTree = "<group>"; };
 		457C31EB1E865327002ECBBA /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		45D93AD71E891371003B7206 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		45D93ADA1E89142F003B7206 /* refreshmemory.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = refreshmemory.xcdatamodel; sourceTree = "<group>"; };
 		5E2B00DABA6B2313BE3B9F28 /* Pods-refreshmemory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-refreshmemory.release.xcconfig"; path = "Pods/Target Support Files/Pods-refreshmemory/Pods-refreshmemory.release.xcconfig"; sourceTree = "<group>"; };
 		942BBCBFFDD5A106CBD93FB0 /* Pods-refreshmemory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-refreshmemory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-refreshmemory/Pods-refreshmemory.debug.xcconfig"; sourceTree = "<group>"; };
 		DB3D64E01F7E33A1338B85BC /* Pods_refreshmemory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_refreshmemory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45D93AD81E891371003B7206 /* CoreData.framework in Frameworks */,
 				94D82620A92CDC27B9D759BB /* Pods_refreshmemory.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,12 +94,12 @@
 				457C31DE1E861F81002ECBBA /* LaunchScreen.storyboard */,
 				457C31E11E861F81002ECBBA /* Info.plist */,
 				457C31E71E862E3B002ECBBA /* AddViewController.swift */,
-				457C31E91E863529002ECBBA /* QnaData.swift */,
 				457C31EB1E865327002ECBBA /* MainTableViewController.swift */,
 				452A4FF41E877F4C0067B0CB /* MainTableViewCell.swift */,
 				452A4FF01E875FD90067B0CB /* EditTableViewController.swift */,
 				452A4FF61E8789800067B0CB /* EditTableViewCell.swift */,
 				452A4FF21E8763060067B0CB /* BaseTableViewController.swift */,
+				45D93AD91E89142F003B7206 /* refreshmemory.xcdatamodeld */,
 			);
 			path = refreshmemory;
 			sourceTree = "<group>";
@@ -104,6 +107,7 @@
 		B4F14FF8E28C3DA96F431B7E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45D93AD71E891371003B7206 /* CoreData.framework */,
 				DB3D64E01F7E33A1338B85BC /* Pods_refreshmemory.framework */,
 			);
 			name = Frameworks;
@@ -233,12 +237,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45D93ADB1E89142F003B7206 /* refreshmemory.xcdatamodeld in Sources */,
 				457C31D81E861F81002ECBBA /* ViewController.swift in Sources */,
 				452A4FF11E875FD90067B0CB /* EditTableViewController.swift in Sources */,
 				452A4FF51E877F4C0067B0CB /* MainTableViewCell.swift in Sources */,
 				457C31D61E861F81002ECBBA /* AppDelegate.swift in Sources */,
 				452A4FF31E8763060067B0CB /* BaseTableViewController.swift in Sources */,
-				457C31EA1E863529002ECBBA /* QnaData.swift in Sources */,
 				452A4FF71E8789800067B0CB /* EditTableViewCell.swift in Sources */,
 				457C31EC1E865327002ECBBA /* MainTableViewController.swift in Sources */,
 				457C31E81E862E3B002ECBBA /* AddViewController.swift in Sources */,
@@ -412,6 +416,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		45D93AD91E89142F003B7206 /* refreshmemory.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				45D93ADA1E89142F003B7206 /* refreshmemory.xcdatamodel */,
+			);
+			currentVersion = 45D93ADA1E89142F003B7206 /* refreshmemory.xcdatamodel */;
+			path = refreshmemory.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 457C31CA1E861F81002ECBBA /* Project object */;
 }

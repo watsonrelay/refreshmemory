@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 import UserNotifications
 import SwiftyJSON
 
@@ -18,12 +19,28 @@ class MainTableViewController: BaseTableViewController, UNUserNotificationCenter
     
     func onTimer() {
         //NSLog("##########__________########## onTimer")
+        reloadData()
+    }
+    
+    override func reloadData() {
+        do {
+            let request: NSFetchRequest<Qna> = Qna.fetchRequest()
+            request.predicate = NSPredicate(format: "due < %lf", Date().timeIntervalSince1970)
+            qnaArray = try context.fetch(request)
+            qnaArray.sort{$0.due < $1.due}
+        } catch {
+            NSLog("Failed to reloadData")
+            qnaArray = []
+        }
         self.tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         //NSLog("##########__________########## set Timer")
-        self.tableView.reloadData()
         timer = Timer.scheduledTimer(timeInterval: 20, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
     }
     
@@ -45,30 +62,25 @@ class MainTableViewController: BaseTableViewController, UNUserNotificationCenter
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return QnaData.getVisibleCount()
+        return qnaArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MainTableViewCell
         
-        let userDefaults = UserDefaults.standard
-        let qna = userDefaults.value(forKey: "qna")
-        let data = JSON(data: qna as! Data)
-        let json = data[indexPath.row]
-
-        cell.questionTitle?.text = json["question"].stringValue
-        cell.answerTitle?.text = json["answer"].stringValue
-        
+        let qna = qnaArray[indexPath.row]
+        cell.questionTitle?.text = qna.question
+        cell.answerTitle?.text = qna.answer
         return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
-            let updated = QnaData.dismiss(at: indexPath.row)
-            if updated != JSON.null {
-                self.tableView.reloadData()
-                notify(updated: updated)
-            }
+            let qna = qnaArray[indexPath.row]
+            qna.setValue(Date().timeIntervalSince1970 + 8 * 3600, forKey: "due")
+            qna.setValue(qna.count + 1, forKey: "count")
+            reloadData()
+            notify(updated: qna)
         }
     }
     
@@ -76,17 +88,17 @@ class MainTableViewController: BaseTableViewController, UNUserNotificationCenter
         return "Dismiss";
     }
     
-    func notify(updated: JSON) {
+    func notify(updated: Qna) {
         if isGrantedNotificationAccess {
             //Set the content of the notification
             let content = UNMutableNotificationContent()
             content.title = "Reminder:"
-            content.subtitle = updated["question"].stringValue
-            content.body = updated["answer"].stringValue
+            content.subtitle = updated.question!
+            content.body = updated.answer!
             
             //Set the trigger of the notification -- here a timer.
             let now = Date().timeIntervalSince1970
-            let time = updated["due"].doubleValue - now
+            let time = updated.due - now
             //NSLog("##########__________########## notify after \(time)")
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: time, repeats: false)
             

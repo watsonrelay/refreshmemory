@@ -11,30 +11,14 @@ import UIKit
 import SwiftyJSON
 
 class BaseTableViewController: UITableViewController {
-    
-    var editingIndexPath : IndexPath? = nil
 
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var editingQna : Qna? = nil
+    var qnaArray : [Qna] = []
+    
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return QnaData.getCount()
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        let userDefaults = UserDefaults.standard
-        let qna = userDefaults.value(forKey: "qna")
-        let data = JSON(data: qna as! Data)
-        let json = data[indexPath.row]
-        
-        cell.textLabel?.text = json["question"].stringValue + json["due"].stringValue// + json["count"].stringValue
-        cell.detailTextLabel?.text = json["answer"].stringValue
-        
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -43,14 +27,6 @@ class BaseTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.delete) {
-            if QnaData.remove(at: indexPath.row) {
-                self.tableView.reloadData()
-            }
-        }
     }
     
     @IBAction func longPressDetected(_ sender: UILongPressGestureRecognizer) {
@@ -64,26 +40,29 @@ class BaseTableViewController: UITableViewController {
     
     func toEdit(at: IndexPath) {
         NSLog("to edit row \(at)")
-        self.editingIndexPath = at
-        performSegue(withIdentifier: "addQnaSegue", sender: nil)
-        
-    }
-    
-    func getEditingIndexPath() -> IndexPath? {
-        return self.editingIndexPath
-    }
-    
-    func didFinishEditing(toReload: Bool) {
-        self.editingIndexPath = nil
-        if toReload {
-            self.tableView.reloadData()
+        if at.row >= 0 && at.row < self.qnaArray.count {
+            self.editingQna = self.qnaArray[at.row]
+            performSegue(withIdentifier: "addQnaSegue", sender: nil)
         }
     }
     
+    func getEditingQna() -> Qna? {
+        return self.editingQna
+    }
+    
+    func didFinishEditing(toReload: Bool) {
+        self.editingQna = nil
+        if toReload {
+            self.reloadData()
+        }
+    }
+    
+    func reloadData() {
+    }
 }
 
 protocol UpdateQnaDelegateProtocol {
     func didFinishEditing(toReload: Bool)
-    func getEditingIndexPath() -> IndexPath?
+    func getEditingQna() -> Qna?
 }
 
