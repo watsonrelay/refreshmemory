@@ -26,16 +26,19 @@ class MainTableViewController: BaseTableViewController, UNUserNotificationCenter
     }
     
     override func reloadData() {
+        var updated : [Qna] = []
         do {
             let request: NSFetchRequest<Qna> = Qna.fetchRequest()
             request.predicate = NSPredicate(format: "due < %lf", Date().timeIntervalSince1970)
-            qnaArray = try context.fetch(request)
-            qnaArray.sort{$0.due < $1.due}
+            updated = try context.fetch(request)
+            updated.sort{$0.due < $1.due}
         } catch {
             NSLog("Failed to reloadData")
-            qnaArray = []
         }
-        self.tableView.reloadData()
+        if updated != qnaArray {
+            qnaArray = updated
+            self.tableView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
