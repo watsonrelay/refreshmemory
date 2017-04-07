@@ -12,7 +12,7 @@ import CoreData
 import UserNotifications
 import SwiftyJSON
 
-class MainTableViewController: BaseTableViewController, UNUserNotificationCenterDelegate, UpdateQnaDelegateProtocol {
+class MainTableViewController: BaseTableViewController, UNUserNotificationCenterDelegate, UpdateQnaDelegateProtocol, MainTableViewCellDelegate {
     
     var isGrantedNotificationAccess : Bool = false
     var timer : Timer!
@@ -61,6 +61,19 @@ class MainTableViewController: BaseTableViewController, UNUserNotificationCenter
         //NSLog("##########__________########## stop Timer")
         timer.invalidate()
     }
+    
+    func qnaSwiped(qna: Qna, direction: UISwipeGestureRecognizerDirection) {
+        if direction == UISwipeGestureRecognizerDirection.left {
+            NSLog("LEFT swipeDetected")
+            qna.setValue(Date().timeIntervalSince1970 + 3600, forKey: "due")
+        } else if direction == UISwipeGestureRecognizerDirection.right {
+            NSLog("RIGHT swipeDetected")
+            qna.setValue(Date().timeIntervalSince1970 + 8 * 3600, forKey: "due")
+        }
+        qna.setValue(qna.count + 1, forKey: "count")
+        reloadData()
+        notify(updated: qna)
+    }
 
     // MARK: - Table view data source
     
@@ -80,6 +93,8 @@ class MainTableViewController: BaseTableViewController, UNUserNotificationCenter
             cell.answerTitle?.text = qna.question
             cell.contentView.subviews[0].backgroundColor = questionColor
         }
+        cell.delegate = self
+        cell.qna = qna
         return cell
     }
     
@@ -109,6 +124,10 @@ class MainTableViewController: BaseTableViewController, UNUserNotificationCenter
     
     override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String {
         return "Dismiss";
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
     
     func notify(updated: Qna) {
