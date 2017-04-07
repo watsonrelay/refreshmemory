@@ -16,6 +16,9 @@ class MainTableViewController: BaseTableViewController, UNUserNotificationCenter
     
     var isGrantedNotificationAccess : Bool = false
     var timer : Timer!
+    var selectedIndexPath : IndexPath? = nil
+    let questionColor = UIColor(red: 248/255, green: 248/255, blue: 232/255, alpha: 1.0)
+    let answerColor = UIColor(red: 240/255, green: 240/255, blue: 208/255, alpha: 1.0)
     
     func onTimer() {
         //NSLog("##########__________########## onTimer")
@@ -67,10 +70,16 @@ class MainTableViewController: BaseTableViewController, UNUserNotificationCenter
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MainTableViewCell
-        
         let qna = qnaArray[indexPath.row]
-        cell.questionTitle?.text = qna.question
-        cell.answerTitle?.text = qna.answer
+        if (indexPath == selectedIndexPath) {
+            cell.questionTitle?.text = "Answer:"
+            cell.answerTitle?.text = qna.answer
+            cell.contentView.subviews[0].backgroundColor = answerColor
+        } else {
+            cell.questionTitle?.text = "Question:"
+            cell.answerTitle?.text = qna.question
+            cell.contentView.subviews[0].backgroundColor = questionColor
+        }
         return cell
     }
     
@@ -81,6 +90,20 @@ class MainTableViewController: BaseTableViewController, UNUserNotificationCenter
             qna.setValue(qna.count + 1, forKey: "count")
             reloadData()
             notify(updated: qna)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath == selectedIndexPath) {
+            selectedIndexPath = nil
+            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.left)
+        } else {
+            let prevIndexPath = selectedIndexPath
+            selectedIndexPath = indexPath
+            tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.right)
+            if prevIndexPath != nil {
+                tableView.reloadRows(at: [prevIndexPath!], with: UITableViewRowAnimation.none)
+            }
         }
     }
     
