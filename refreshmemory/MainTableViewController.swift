@@ -18,7 +18,7 @@ class MainTableViewController: BaseTableViewController, UNUserNotificationCenter
     var timer : Timer!
     var selectedIndexPath : IndexPath? = nil
     let questionColor = UIColor(red: 248/255, green: 248/255, blue: 232/255, alpha: 1.0)
-    let answerColor = UIColor(red: 240/255, green: 240/255, blue: 208/255, alpha: 1.0)
+    let answerColor = UIColor(red: 240/255, green: 208/255, blue: 208/255, alpha: 1.0)
     
     func onTimer() {
         //NSLog("##########__________########## onTimer")

@@ -40,9 +40,10 @@ class MainTableViewCell : UITableViewCell {
         } else if sender.state == UIGestureRecognizerState.changed {
             let translation = sender.translation(in: self)
             center = CGPoint.init(x: originalCenter.x + translation.x, y: originalCenter.y)
-            if frame.origin.x < -frame.size.width / 2.0 {
+            var threshold = frame.size.width > 320.0 ? 160.0 : frame.size.width / 2.0
+            if frame.origin.x < -threshold {
                 commitDirection = UISwipeGestureRecognizerDirection.left
-            } else if frame.origin.x > frame.size.width / 2.0 {
+            } else if frame.origin.x > threshold {
                 commitDirection = UISwipeGestureRecognizerDirection.right
             } else {
                 commitDirection = nil
